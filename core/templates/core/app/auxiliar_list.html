@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Cadastros | IOLex{% endblock %}
+
+{% block content %}
+<div class="space-y-6 animate-fade-in-down">
+    <div class="flex justify-between items-end">
+        <div>
+            <h1 class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">Gerenciar Cadastros</h1>
+            <p class="text-sm text-slate-500 mt-1">Listagem de registros auxiliares.</p>
+        </div>
+        <a href="{{ request.path }}novo/" class="flex items-center px-4 py-2.5 bg-brand-purple hover:bg-purple-800 text-white rounded-xl shadow-lg transition-all text-sm font-bold">
+            <i class="fas fa-plus mr-2"></i> Adicionar Novo
+        </a>
+    </div>
+
+    <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl border border-white/40 dark:border-white/5 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-white/40 dark:bg-slate-800/40 border-b border-gray-100 dark:border-gray-700">
+                    <tr>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase">Nome / Identificação</th>
+                        <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase text-right">Ações</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                    {% for item in items %}
+                    <tr class="hover:bg-white/50 dark:hover:bg-slate-800/50 transition-colors">
+                        <td class="px-6 py-4 font-medium text-slate-700 dark:text-slate-200">
+                            {{ item.nome|default:item }}
+                            {% if item.comarca %} <span class="text-xs text-slate-400 ml-2">({{ item.comarca }})</span> {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-right flex justify-end gap-2">
+                            <a href="{{ request.path }}{{ item.id }}/editar/" class="text-blue-500 hover:bg-blue-50 p-2 rounded-lg"><i class="fas fa-edit"></i></a>
+                            <form action="{{ request.path }}{{ item.id }}/deletar/" method="POST" onsubmit="return confirm('Tem certeza?');">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-500 hover:bg-red-50 p-2 rounded-lg"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="px-6 py-10 text-center text-slate-400 text-sm">Nenhum registro encontrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

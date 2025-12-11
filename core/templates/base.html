@@ -21,28 +21,69 @@
             darkMode: 'class',
             theme: {
                 extend: {
-                    colors: { indigo: primaryBrand, brand: { purple: '#6200EA', gold: '#FFD700', platinum: '#F8FAFC' } },
+                    colors: {
+                        indigo: primaryBrand,
+                        brand: {
+                            purple: '#6200EA',
+                            gold: '#FFD700',
+                            platinum: '#F8FAFC'
+                        }
+                    },
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    animation: { 'fade-in-down': 'fadeInDown 0.4s ease-out', 'blob': 'blob 10s infinite' },
+                    animation: {
+                        'fade-in-down': 'fadeInDown 0.4s ease-out',
+                        'blob': 'blob 10s infinite',
+                    },
                     keyframes: {
-                        fadeInDown: { '0%': { opacity: '0', transform: 'translateY(-20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-                        blob: { '0%': { transform: 'translate(0px, 0px) scale(1)' }, '33%': { transform: 'translate(30px, -50px) scale(1.1)' }, '66%': { transform: 'translate(-20px, 20px) scale(0.9)' }, '100%': { transform: 'translate(0px, 0px) scale(1)' } }
+                        fadeInDown: {
+                            '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' }
+                        }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Seus estilos CSS customizados */
         body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); }
-        .dark .glass { background: rgba(17, 24, 39, 0.7); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .nav-item:hover .nav-label { opacity: 1; visibility: visible; bottom: -35px; }
-        .nav-label { opacity: 0; visibility: hidden; position: absolute; bottom: -25px; transition: all 0.3s; background: #6200EA; color: white; padding: 2px 8px; border-radius: 6px; font-size: 10px; white-space: nowrap; z-index: 50; }
-        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: rgba(98, 0, 234, 0.2); border-radius: 10px; }
+        .nav-item { position: relative; display: flex; align-items: center; justify-content: center; }
+        .nav-label {
+            position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%);
+            background-color: rgba(98, 0, 234, 0.9); color: white;
+            padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;
+            white-space: nowrap; opacity: 0; visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            pointer-events: none; z-index: 50; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item:hover .nav-label { opacity: 1; visibility: visible; bottom: -45px; }
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .dark .glass {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(98, 0, 234, 0.2); border-radius: 10px; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen dark:bg-[#0f111a] dark:text-slate-100 transition-colors duration-500">
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen dark:bg-[#0f111a] dark:text-slate-100 transition-colors duration-500 selection:bg-[#6200EA] selection:text-white">
+
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/50 via-white to-slate-100/50 dark:from-slate-900 dark:via-[#0f111a] dark:to-black"></div>
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-purple-400/20 dark:bg-purple-900/20 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-400/20 dark:bg-indigo-900/20 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob animation-delay-2000"></div>
+    </div>
 
     <nav class="sticky top-4 z-50 mx-4 lg:mx-8 rounded-2xl glass shadow-sm transition-all duration-300">
         <div class="px-4 sm:px-6">
@@ -52,6 +93,7 @@
                     <a href="{% url 'landing' %}" class="flex items-center gap-3 group">
                         <div class="relative w-9 h-9 flex items-center justify-center">
                             <div class="absolute inset-0 bg-brand-purple rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300 opacity-20"></div>
+                            <div class="absolute inset-0 bg-brand-purple rounded-xl -rotate-3 group-hover:-rotate-6 transition-transform duration-300"></div>
                             <i class="fas fa-balance-scale text-white relative z-10 text-sm"></i>
                         </div>
                         <span class="font-black text-xl tracking-tight text-slate-800 dark:text-white group-hover:text-brand-purple transition-colors">
@@ -62,17 +104,30 @@
 
                 {% if user.is_authenticated %}
                 <div class="hidden md:flex items-center justify-center gap-1 bg-slate-100/50 dark:bg-slate-800/50 p-1.5 rounded-xl border border-white/20 dark:border-white/5 backdrop-blur-sm">
+                    
                     <a href="{% url 'home' %}" class="nav-item w-10 h-10 rounded-lg text-slate-500 hover:bg-white hover:text-brand-purple hover:shadow-md transition-all duration-300 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
-                        <i class="fas fa-home"></i><span class="nav-label">Home</span>
+                        <i class="fas fa-home"></i>
+                        <span class="nav-label">Home</span>
                     </a>
+
                     <a href="{% url 'visao_geral' %}" class="nav-item w-10 h-10 rounded-lg text-slate-500 hover:bg-white hover:text-brand-purple hover:shadow-md transition-all duration-300 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
-                        <i class="fas fa-chart-pie"></i><span class="nav-label">Visão Geral</span>
+                        <i class="fas fa-chart-pie"></i>
+                        <span class="nav-label">Visão Geral</span>
                     </a>
+
                     <a href="{% url 'processos_list' %}" class="nav-item w-10 h-10 rounded-lg text-slate-500 hover:bg-white hover:text-brand-purple hover:shadow-md transition-all duration-300 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
-                        <i class="fas fa-gavel"></i><span class="nav-label">Processos</span>
+                        <i class="fas fa-gavel"></i>
+                        <span class="nav-label">Processos</span>
                     </a>
+
+                    <a href="{% url 'clientes_list' %}" class="nav-item w-10 h-10 rounded-lg text-slate-500 hover:bg-white hover:text-brand-purple hover:shadow-md transition-all duration-300 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                        <i class="fas fa-users"></i>
+                        <span class="nav-label">Clientes</span>
+                    </a>
+
                     <a href="{% url 'agenda' %}" class="nav-item w-10 h-10 rounded-lg text-slate-500 hover:bg-white hover:text-brand-purple hover:shadow-md transition-all duration-300 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white">
-                        <i class="fas fa-calendar-alt"></i><span class="nav-label">Agenda</span>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="nav-label">Agenda</span>
                     </a>
                 </div>
 
@@ -80,26 +135,40 @@
                     <button id="theme-toggle" class="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:bg-slate-100 hover:text-brand-gold dark:hover:bg-slate-800 transition-all">
                         <i class="fas fa-moon" id="theme-icon"></i>
                     </button>
-                    
+
                     <div class="relative group ml-1">
-                        <button class="flex items-center focus:outline-none transition-transform hover:scale-105">
-                            <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-brand-purple to-indigo-900 text-white flex items-center justify-center font-bold text-xs shadow-md">
-                                {{ user.username|slice:":2"|upper }}
-                            </div>
+                        <button type="button" class="flex items-center focus:outline-none transition-transform hover:scale-105">
+                            {% if user.foto_perfil %}
+                                <img class="h-9 w-9 rounded-xl object-cover border-2 border-white shadow-md" src="{{ user.foto_perfil.url }}">
+                            {% else %}
+                                <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-brand-purple to-indigo-900 text-white flex items-center justify-center font-bold text-xs shadow-md">
+                                    {{ user.username|slice:":2"|upper }}
+                                </div>
+                            {% endif %}
                         </button>
-                        <div class="absolute right-0 mt-2 w-48 glass rounded-xl shadow-2xl py-2 hidden group-hover:block z-50">
-                            <div class="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
+
+                        <div class="absolute right-0 mt-3 w-60 glass rounded-2xl shadow-2xl py-2 hidden group-hover:block z-50 animate-fade-in-down">
+                            <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
                                 <p class="text-sm font-bold text-slate-800 dark:text-white truncate">{{ user.username }}</p>
+                                <p class="text-[10px] text-slate-500 uppercase tracking-wide">{{ user.email }}</p>
                             </div>
-                            <form action="{% url 'logout' %}" method="post" class="p-1">
-                                {% csrf_token %}
-                                <button type="submit" class="w-full text-left px-3 py-2 text-xs font-bold text-red-500 hover:bg-red-50 rounded-lg transition-colors">Sair</button>
-                            </form>
+                            
+                            <div class="p-1">
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="w-full flex items-center gap-3 px-3 py-2 text-xs font-bold text-red-500 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors text-left">
+                                        <i class="fas fa-sign-out-alt"></i> Sair
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
                 {% else %}
-                <a href="{% url 'login' %}" class="px-5 py-2 text-sm font-bold text-white bg-brand-purple rounded-xl shadow-lg hover:bg-purple-800 transition-all">Entrar</a>
+                <div class="flex items-center gap-3">
+                    <a href="{% url 'login' %}" class="text-sm font-bold text-slate-600 hover:text-brand-purple transition-colors">Entrar</a>
+                    <a href="{% url 'login' %}" class="px-5 py-2 text-sm font-bold text-white bg-brand-purple rounded-xl shadow-lg hover:bg-purple-800 transition-all">Começar</a>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -109,15 +178,41 @@
         {% block content %}{% endblock %}
     </main>
 
+    <footer class="mt-auto glass border-t border-white/20 py-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-[10px] text-slate-400 font-medium">
+                &copy; 2025 • IOLex System
+            </p>
+        </div>
+    </footer>
+
     <script>
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
+        
         function setDarkTheme(isDark) {
-            if (isDark) { document.documentElement.classList.add('dark'); localStorage.setItem('color-theme', 'dark'); if(themeIcon) themeIcon.className = "fas fa-sun"; } 
-            else { document.documentElement.classList.remove('dark'); localStorage.setItem('color-theme', 'light'); if(themeIcon) themeIcon.className = "fas fa-moon"; }
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                if(themeIcon) themeIcon.className = "fas fa-sun";
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                if(themeIcon) themeIcon.className = "fas fa-moon";
+            }
         }
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) { setDarkTheme(true); } else { setDarkTheme(false); }
-        if(themeToggle) { themeToggle.addEventListener('click', () => { setDarkTheme(!document.documentElement.classList.contains('dark')); }); }
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setDarkTheme(true);
+        } else {
+            setDarkTheme(false);
+        }
+
+        if(themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                setDarkTheme(!document.documentElement.classList.contains('dark'));
+            });
+        }
     </script>
     
     {% block scripts %}{% endblock %}
