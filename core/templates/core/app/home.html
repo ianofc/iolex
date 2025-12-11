@@ -1,32 +1,26 @@
 {% extends "base.html" %}
-{% load static %} {% block title %}Home | IOLex{% endblock %}
+{% load static %}
+
+{% block title %}Home | IOLex{% endblock %}
 
 {% block content %}
 
-<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#6200EA] rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob"></div>
-    <div class="absolute top-0 right-1/4 w-96 h-96 bg-cyan-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-2000"></div>
-    <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-blob animation-delay-4000"></div>
-</div>
-
 <div class="relative flex flex-col md:flex-row justify-between items-end mb-8 animate-fade-in-down z-10">
     <div>
-        <p class="text-xs font-bold text-[#6200EA] uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-[#FFD700] shadow-[0_0_10px_#FFD700]"></span>
-            <span id="portalDate">Carregando data...</span>
+        <p class="text-xs font-bold text-brand-purple uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-gold shadow-[0_0_10px_#FFD700]"></span>
+            <span>{% now "l, d \d\e F" %}</span>
         </p>
         <h1 class="text-4xl font-black text-slate-800 dark:text-white tracking-tight">
-            Painel do <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#6200EA] to-purple-400">Advogado</span>
+            Painel do <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-purple-400">Advogado</span>
         </h1>
     </div>
     
     <div class="mt-6 md:mt-0 flex gap-4">
-        <a href="{% url 'agenda' %}" 
-           class="group flex items-center px-5 py-2.5 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-white/60 hover:border-[#6200EA]/30 hover:text-[#6200EA] transition-all duration-300 shadow-sm hover:shadow-lg hover:shadow-[#6200EA]/10 text-xs font-bold uppercase tracking-wide">
-            <i class="fas fa-calendar-alt mr-2 group-hover:rotate-12 transition-transform duration-500"></i> Agenda
+        <a href="{% url 'agenda' %}" class="group flex items-center px-5 py-2.5 bg-white/40 dark:bg-slate-800/40 backdrop-blur-md border border-white/50 dark:border-white/10 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-white/60 hover:border-brand-purple hover:text-brand-purple transition-all shadow-sm text-xs font-bold uppercase">
+            <i class="fas fa-calendar-alt mr-2 group-hover:rotate-12 transition-transform"></i> Agenda
         </a>
-        <a href="{% url 'processos_list' %}" 
-           class="flex items-center px-6 py-2.5 bg-[#6200EA] hover:bg-[#5000BF] text-white rounded-2xl shadow-[0_4px_20px_-5px_rgba(98,0,234,0.4)] hover:shadow-[0_8px_25px_-5px_rgba(98,0,234,0.6)] transition-all transform hover:-translate-y-0.5 border border-white/20 text-xs font-bold uppercase tracking-wide">
+        <a href="{% url 'processos_list' %}" class="flex items-center px-6 py-2.5 bg-brand-purple hover:bg-purple-800 text-white rounded-2xl shadow-lg transition-all transform hover:-translate-y-0.5 text-xs font-bold uppercase">
             <i class="fas fa-plus mr-2"></i> Novo Processo
         </a>
     </div>
@@ -36,109 +30,45 @@
 
     <div class="lg:col-span-3 space-y-6">
         
-        <div class="group bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-white/40 dark:border-white/5 p-6 text-center relative overflow-hidden transition-all hover:bg-white/70">
-            <div class="absolute -top-10 -left-10 w-32 h-32 bg-[#6200EA] opacity-10 blur-3xl rounded-full"></div>
-            
+        <div class="group bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl border border-white/40 dark:border-white/5 p-6 text-center transition-all hover:bg-white/70">
             <div class="relative inline-block mb-3">
-                <div class="absolute inset-0 bg-gradient-to-tr from-[#6200EA] to-[#FFD700] rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 {% if user.foto_perfil %}
-                    <img class="relative h-20 w-20 rounded-2xl object-cover border-2 border-white/80 dark:border-slate-700 shadow-lg mx-auto transform group-hover:scale-105 transition-transform duration-500" 
-                         src="{{ user.foto_perfil.url }}" alt="Perfil">
+                    <img class="h-20 w-20 rounded-2xl object-cover border-2 border-white/80 shadow-lg mx-auto" src="{{ user.foto_perfil.url }}">
                 {% else %}
-                    <div class="relative h-20 w-20 rounded-2xl bg-gradient-to-br from-[#6200EA] to-purple-800 text-white flex items-center justify-center text-2xl font-black mx-auto shadow-inner border border-white/20">
+                    <div class="h-20 w-20 rounded-2xl bg-gradient-to-br from-brand-purple to-indigo-900 text-white flex items-center justify-center text-2xl font-black mx-auto shadow-inner">
                         {{ user.username|slice:":2"|upper }}
                     </div>
                 {% endif %}
-                <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#00E676] border-2 border-white rounded-full shadow-sm" title="Online"></div>
+                <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
             </div>
-            
-            <h3 class="text-lg font-black text-slate-800 dark:text-white mb-1">{{ user.first_name|default:user.username }}</h3>
-            <p class="text-[10px] font-bold text-[#6200EA] uppercase tracking-widest bg-[#6200EA]/5 inline-block px-3 py-1 rounded-full border border-[#6200EA]/10">
+            <h3 class="text-lg font-black text-slate-800 dark:text-white">{{ user.first_name|default:user.username }}</h3>
+            <p class="text-[10px] font-bold text-brand-purple uppercase bg-purple-50 px-3 py-1 rounded-full inline-block mt-1">
                 {{ user.role.name|default:"Advogado" }}
             </p>
         </div>
 
-        <div class="bg-gradient-to-br from-[#6200EA] to-indigo-600 rounded-3xl p-6 text-white shadow-2xl shadow-indigo-500/30 relative overflow-hidden group border border-white/10">
-            <div class="absolute inset-0 bg-white/5 backdrop-blur-[1px]"></div>
-            <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-400 rounded-full blur-3xl opacity-30 mix-blend-overlay"></div>
-
-            <button onclick="toggleCitySearch()" class="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-20 bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/10 hover:bg-white/20">
-                <i class="fas fa-map-marker-alt"></i>
-            </button>
-
-            <div id="weatherDisplay" class="relative z-10">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h2 id="weatherTemp" class="text-5xl font-black tracking-tighter drop-shadow-lg">--°</h2>
-                        <p id="cityName" class="text-xs font-bold text-indigo-100 uppercase tracking-wider mt-1 flex items-center gap-1">
-                            <i class="fas fa-location-arrow text-[10px]"></i> Localizando...
-                        </p>
-                    </div>
-                    <i id="weatherIcon" class="fas fa-cloud-sun text-4xl text-[#FFD700] drop-shadow-lg opacity-90"></i>
-                </div>
-                
-                <div class="grid grid-cols-3 gap-2 text-center bg-white/10 rounded-2xl p-2 border border-white/5 backdrop-blur-md">
-                    <div class="text-[10px] flex flex-col">
-                        <span class="opacity-60 mb-1">09h</span>
-                        <span id="forecast09" class="font-bold text-sm">--°</span>
-                    </div>
-                    <div class="text-[10px] flex flex-col border-l border-white/10">
-                        <span class="opacity-60 mb-1">15h</span>
-                        <span id="forecast15" class="font-bold text-sm">--°</span>
-                    </div>
-                    <div class="text-[10px] flex flex-col border-l border-white/10">
-                        <span class="opacity-60 mb-1">20h</span>
-                        <span id="forecast20" class="font-bold text-sm">--°</span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="citySearchForm" class="hidden absolute inset-0 bg-[#6200EA]/95 backdrop-blur-xl z-30 flex-col justify-center items-center p-6 text-center transition-all">
-                <p class="text-xs font-bold mb-3 uppercase text-white/80 tracking-widest">Definir Cidade</p>
-                <div class="flex flex-col gap-2 w-full">
-                    <input type="text" id="cityInput" placeholder="Ex: São Paulo" 
-                           class="w-full text-sm text-slate-800 rounded-xl px-4 py-2 border-0 focus:ring-2 focus:ring-[#FFD700] shadow-lg">
-                    <div class="flex gap-2">
-                        <button onclick="saveCity()" class="flex-1 bg-[#FFD700] text-indigo-900 rounded-xl py-2 text-xs font-black uppercase hover:bg-yellow-300 transition-colors shadow-lg">Salvar</button>
-                        <button onclick="toggleCitySearch()" class="flex-1 bg-white/10 text-white rounded-xl py-2 text-xs font-bold uppercase hover:bg-white/20 transition-colors">Voltar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <nav class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl border border-white/40 dark:border-white/5 overflow-hidden">
             <a href="{% url 'visao_geral' %}" class="flex items-center justify-between px-6 py-4 border-b border-gray-100/50 dark:border-gray-700/50 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all group">
-                <span class="text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-[#6200EA] transition-colors flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-[#6200EA] dark:text-indigo-300 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    Visão Geral
+                <span class="text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-brand-purple flex items-center gap-3">
+                    <i class="fas fa-chart-line"></i> Visão Geral
                 </span>
-                <i class="fas fa-arrow-right text-[10px] text-gray-300 group-hover:text-[#6200EA] group-hover:translate-x-1 transition-all"></i>
+                <i class="fas fa-arrow-right text-[10px] text-gray-300 group-hover:text-brand-purple"></i>
             </a>
             <a href="{% url 'clientes_list' %}" class="flex items-center justify-between px-6 py-4 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all group">
-                <span class="text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-teal-600 transition-colors flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 dark:text-teal-300 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    Meus Clientes
+                <span class="text-xs font-bold text-slate-600 dark:text-slate-300 group-hover:text-teal-600 flex items-center gap-3">
+                    <i class="fas fa-users"></i> Meus Clientes
                 </span>
-                <i class="fas fa-arrow-right text-[10px] text-gray-300 group-hover:text-teal-500 group-hover:translate-x-1 transition-all"></i>
+                <i class="fas fa-arrow-right text-[10px] text-gray-300 group-hover:text-teal-500"></i>
             </a>
         </nav>
 
-        <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl border border-white/40 dark:border-white/5 p-5">
-            <h2 class="text-xs font-black text-slate-400 uppercase mb-4 flex justify-between items-center tracking-wide">
-                Lembretes
-                <span class="bg-[#FFD700] text-indigo-900 text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm">Pessoal</span>
-            </h2>
-            
-            <div class="flex flex-col items-center justify-center py-6 opacity-50">
+        <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl border border-white/40 dark:border-white/5 p-5 text-center">
+            <h2 class="text-xs font-black text-slate-400 uppercase mb-4">Lembretes</h2>
+            <div class="py-4 opacity-50">
                 <i class="far fa-sticky-note text-2xl text-gray-300 mb-2"></i>
-                <p class="text-[10px] text-gray-400">Nenhum lembrete pendente.</p>
+                <p class="text-[10px] text-gray-400">Nenhum lembrete.</p>
             </div>
         </div>
-
     </div>
 
     <div class="lg:col-span-9 space-y-8">
@@ -146,214 +76,46 @@
         <section class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl rounded-3xl shadow-xl border border-white/40 dark:border-white/5 overflow-hidden">
             <div class="px-6 py-5 border-b border-gray-100/50 dark:border-gray-700/50 flex justify-between items-center bg-white/40 dark:bg-slate-800/40">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-[#6200EA]/10 flex items-center justify-center text-[#6200EA]">
-                        <i class="fas fa-calendar-week text-lg"></i>
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-brand-purple">
+                        <i class="fas fa-calendar-week"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-black text-slate-800 dark:text-white uppercase tracking-wide">Agenda Semanal</h2>
-                        <p class="text-[10px] text-slate-500 font-medium">Seus compromissos e audiências</p>
+                        <h2 class="text-sm font-black text-slate-800 dark:text-white uppercase">Agenda Semanal</h2>
                     </div>
                 </div>
-                <a href="{% url 'agenda' %}" class="text-xs font-bold text-[#6200EA] hover:underline">Ver Completa</a>
+                <a href="{% url 'agenda' %}" class="text-xs font-bold text-brand-purple hover:underline">Ver Completa</a>
             </div>
-
-            <div class="p-8 text-center flex flex-col items-center justify-center min-h-[200px]">
-                <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4 text-slate-300 text-2xl">
-                    <i class="far fa-calendar-check"></i>
-                </div>
-                <p class="text-sm font-medium text-slate-500 dark:text-slate-400 mb-4">Você não tem audiências agendadas para esta semana.</p>
-                <a href="{% url 'agenda' %}" class="px-6 py-2 bg-indigo-50 text-[#6200EA] rounded-full text-xs font-bold uppercase tracking-wide hover:bg-[#6200EA] hover:text-white transition-all shadow-sm">
-                    Agendar Compromisso
-                </a>
+            <div class="p-8 text-center">
+                <p class="text-sm text-slate-500">Você não tem audiências urgentes esta semana.</p>
             </div>
         </section>
 
         <section>
-            <h2 class="text-xs font-black text-slate-400 uppercase mb-4 tracking-[0.2em] ml-1">Meus Casos Recentes</h2>
+            <h2 class="text-xs font-black text-slate-400 uppercase mb-4 ml-1">Processos Recentes</h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {% for processo in processos %}
-                <a href="#" class="group relative bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-2xl p-5 border border-white/40 dark:border-white/5 hover:border-[#6200EA]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6200EA]/10">
-                    
-                    <div class="flex items-start justify-between mb-4">
-                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-black text-sm shrink-0 bg-gradient-to-br shadow-md from-[#6200EA] to-purple-600 shadow-purple-500/30">
+                <a href="#" class="group bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-2xl p-5 border border-white/40 dark:border-white/5 hover:border-brand-purple transition-all hover:-translate-y-1 hover:shadow-xl">
+                    <div class="flex justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center text-brand-purple font-bold text-xs">
                             {{ processo.cliente.nome|slice:":2"|upper }}
                         </div>
-                        
-                        <span class="text-[10px] font-bold px-2 py-1 rounded-md border 
-                            {% if processo.status == 'ATIVO' %}bg-green-50 text-green-600 border-green-100 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800
-                            {% elif processo.status == 'SUSPENSO' %}bg-yellow-50 text-yellow-600 border-yellow-100
-                            {% else %}bg-gray-50 text-gray-500 border-gray-200{% endif %}">
+                        <span class="text-[10px] font-bold px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                             {{ processo.status }}
                         </span>
                     </div>
-
-                    <h3 class="font-black text-base text-slate-800 dark:text-white mb-1 group-hover:text-[#6200EA] transition-colors truncate">
-                        {{ processo.titulo }}
-                    </h3>
-                    
-                    <div class="flex items-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-wide">
-                        <span class="flex items-center gap-1"><i class="far fa-user"></i> {{ processo.cliente.nome|truncatechars:15 }}</span>
-                        <span class="w-1 h-1 rounded-full bg-slate-300"></span>
-                        <span class="flex items-center gap-1 font-mono">#{{ processo.numero|truncatechars:10 }}</span>
-                    </div>
-
-                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-white/40 to-transparent rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <h3 class="font-bold text-slate-800 dark:text-white truncate">{{ processo.titulo }}</h3>
+                    <p class="text-xs text-slate-500 mt-1">#{{ processo.numero }}</p>
                 </a>
                 {% empty %}
-                <div class="col-span-full py-10 text-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl bg-white/20">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">Nenhum processo encontrado</p>
-                    <a href="{% url 'processos_list' %}" class="mt-2 text-[#6200EA] text-sm font-bold hover:underline">Cadastrar Primeiro</a>
+                <div class="col-span-full py-10 text-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl">
+                    <p class="text-xs font-bold text-slate-400">Nenhum processo encontrado</p>
+                    <a href="{% url 'processos_list' %}" class="mt-2 text-brand-purple text-sm font-bold hover:underline">Cadastrar Primeiro</a>
                 </div>
                 {% endfor %}
             </div>
         </section>
 
     </div>
-
 </div>
-
-<style>
-    /* Estilos Específicos para o Glass Aurora */
-    .animate-blob { animation: blob 7s infinite; }
-    .animation-delay-2000 { animation-delay: 2s; }
-    .animation-delay-4000 { animation-delay: 4s; }
-    @keyframes blob {
-        0% { transform: translate(0px, 0px) scale(1); }
-        33% { transform: translate(30px, -50px) scale(1.1); }
-        66% { transform: translate(-20px, 20px) scale(0.9); }
-        100% { transform: translate(0px, 0px) scale(1); }
-    }
-    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(98, 0, 234, 0.2); border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(98, 0, 234, 0.5); }
-</style>
-
-{% endblock %}
-
-{% block scripts %}
-<script>
-    // 1. DATA ATUAL (FORMATO PREMIUM)
-    const dateEl = document.getElementById('portalDate');
-    if(dateEl) {
-        const options = { weekday: 'long', day: 'numeric', month: 'long' };
-        const dateStr = new Date().toLocaleDateString('pt-BR', options);
-        dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-    }
-
-    // 2. BRASIL API (FERIADOS)
-    fetch(`https://brasilapi.com.br/api/feriados/v1/${new Date().getFullYear()}`)
-        .then(res => res.json())
-        .then(feriados => {
-            const hoje = new Date();
-            const proximo = feriados.find(f => new Date(f.date + "T00:00:00") >= hoje);
-            if(proximo) {
-                const dataF = new Date(proximo.date + "T00:00:00");
-                document.getElementById('holidayDay').textContent = dataF.getDate();
-                document.getElementById('holidayMonth').textContent = dataF.toLocaleString('pt-BR', { month: 'short' }).replace('.','').toUpperCase();
-                document.getElementById('holidayName').textContent = proximo.name;
-            } else {
-                document.getElementById('holidayName').textContent = "Sem previsão";
-                document.getElementById('holidayMonth').textContent = "--";
-            }
-        })
-        .catch(() => document.getElementById('holidayName').textContent = "Indisponível");
-
-    // 3. CLIMA COM SELEÇÃO DE CIDADE
-    const weatherWidget = {
-        display: document.getElementById('weatherDisplay'),
-        form: document.getElementById('citySearchForm'),
-        input: document.getElementById('cityInput'),
-        temp: document.getElementById('weatherTemp'),
-        city: document.getElementById('cityName'),
-        icon: document.getElementById('weatherIcon'),
-        f09: document.getElementById('forecast09'),
-        f15: document.getElementById('forecast15'),
-        f20: document.getElementById('forecast20')
-    };
-
-    function toggleCitySearch() {
-        if (!weatherWidget.form) return;
-        weatherWidget.form.classList.toggle('hidden');
-        weatherWidget.form.classList.toggle('flex');
-        if(!weatherWidget.form.classList.contains('hidden')) {
-            weatherWidget.input.focus();
-        }
-    }
-
-    function saveCity() {
-        const city = weatherWidget.input.value.trim();
-        if(city) {
-            localStorage.setItem('userCity', city);
-            getWeatherForCity(city);
-            toggleCitySearch();
-        }
-    }
-
-    function updateUI(temp, cityName, code, hourly) {
-        if (!weatherWidget.temp) return;
-        weatherWidget.temp.textContent = `${Math.round(temp)}°`;
-        weatherWidget.city.innerHTML = `<i class="fas fa-location-arrow text-[10px]"></i> ${cityName}`;
-        
-        if(code <= 3) weatherWidget.icon.className = "fas fa-cloud-sun text-4xl text-[#FFD700] drop-shadow-lg";
-        else if(code <= 67) weatherWidget.icon.className = "fas fa-cloud-rain text-4xl text-cyan-200 drop-shadow-lg";
-        else weatherWidget.icon.className = "fas fa-bolt text-4xl text-purple-200 drop-shadow-lg animate-pulse";
-
-        weatherWidget.f09.textContent = `${Math.round(hourly[9])}°`;
-        weatherWidget.f15.textContent = `${Math.round(hourly[15])}°`;
-        weatherWidget.f20.textContent = `${Math.round(hourly[20])}°`;
-    }
-
-    function getWeatherForCity(city) {
-        weatherWidget.city.textContent = "Atualizando...";
-        
-        fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=pt`)
-            .then(res => res.json())
-            .then(data => {
-                if(data.results && data.results.length > 0) {
-                    const { latitude, longitude, name } = data.results[0];
-                    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m&timezone=auto`)
-                        .then(res => res.json())
-                        .then(weatherData => {
-                            updateUI(
-                                weatherData.current_weather.temperature, 
-                                name, 
-                                weatherData.current_weather.weathercode,
-                                weatherData.hourly.temperature_2m
-                            );
-                        });
-                } else {
-                    weatherWidget.city.textContent = "Cidade não encontrada";
-                }
-            })
-            .catch(e => {
-                weatherWidget.city.textContent = "Erro na conexão";
-            });
-    }
-
-    // Inicialização
-    const savedCity = localStorage.getItem('userCity');
-    if(savedCity) {
-        getWeatherForCity(savedCity);
-    } else {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&localityLanguage=pt`)
-                        .then(res => res.json())
-                        .then(data => {
-                            const city = data.city || data.locality || "São Paulo";
-                            getWeatherForCity(city);
-                        })
-                        .catch(() => getWeatherForCity("São Paulo"));
-                },
-                () => getWeatherForCity("São Paulo")
-            );
-        } else {
-            getWeatherForCity("São Paulo");
-        }
-    }
-</script>
-<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
