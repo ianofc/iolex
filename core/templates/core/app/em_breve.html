@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ titulo }} | IOLex{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 animate-fade-in-down">
+    <div class="w-24 h-24 bg-white/50 dark:bg-slate-800/50 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm border border-white/20">
+        <i class="fas fa-hammer text-4xl text-brand-purple"></i>
+    </div>
+    
+    <div class="space-y-2">
+        <h1 class="text-3xl font-black text-slate-800 dark:text-white">{{ titulo }}</h1>
+        <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+            Este módulo está em desenvolvimento. Em breve você terá acesso completo a esta funcionalidade.
+        </p>
+    </div>
+
+    <a href="{% url 'home' %}" class="px-6 py-3 bg-brand-purple hover:bg-purple-700 text-white rounded-xl font-bold shadow-lg transition-all transform hover:-translate-y-1">
+        Voltar para Home
+    </a>
+</div>
+{% endblock %}

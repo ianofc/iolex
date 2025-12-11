@@ -1,0 +1,75 @@
+/* core/static/css/aurora.css */
+
+:root {
+    /* Cores Nucleares do CORTEX */
+    --bg-deep: #020617;      /* Quase preto, azulado */
+    --glass-surface: rgba(30, 41, 59, 0.4); /* Superfície de vidro base */
+    --glass-border: rgba(124, 58, 237, 0.3);  /* Borda roxa brilhante */
+    --neon-primary: #8b5cf6; /* Violeta vibrante para acentos */
+    --neon-accent: #d946ef;  /* Rosa fúcsia para detalhes */
+    --text-glow: rgba(255, 255, 255, 0.9);
+}
+
+/* --- Comportamento Geral --- */
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Montserrat', sans-serif; /* Fonte mais moderna como padrão */
+    background-color: var(--bg-deep);
+    color: var(--text-glow);
+    overflow-x: hidden;
+}
+
+/* --- Blobs Aurora (Fundo Animado) --- */
+.blob-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; overflow: hidden; pointer-events: none;
+    background: radial-gradient(circle at center, #1e1b4b 0%, #020617 100%);
+}
+
+.blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(100px); opacity: 0.4;
+    mix-blend-mode: screen;
+    animation: aurora-drift 20s infinite alternate ease-in-out;
+}
+
+.blob-1 { top: -20%; left: -20%; width: 60vw; height: 60vw; background: #4c1d95; animation-delay: 0s; } /* Roxo profundo */
+.blob-2 { bottom: -20%; right: -20%; width: 50vw; height: 50vw; background: #3b0764; animation-delay: -5s; } /* Violeta escuro */
+.blob-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: #1d4ed8; opacity: 0.2; animation-delay: -10s; } /* Azul tecnológico */
+
+@keyframes aurora-drift {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    100% { transform: translate(5%, 10%) scale(1.1) rotate(5deg); }
+}
+
+/* --- CORTEX Glass Surface Standard --- */
+/* Esta é a classe padrão para qualquer "cartão" no sistema */
+.cortex-glass {
+    background: var(--glass-surface);
+    backdrop-filter: blur(24px) saturate(110%);
+    -webkit-backdrop-filter: blur(24px) saturate(110%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 
+        0 4px 20px -2px rgba(0, 0, 0, 0.5), /* Sombra profunda */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05); /* Brilho interno sutil */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cortex-glass:hover {
+    border-color: rgba(139, 92, 246, 0.6); /* Brilho intenso ao passar o mouse */
+    box-shadow: 0 8px 30px -4px rgba(124, 58, 237, 0.2); /* Glow externo */
+    transform: translateY(-2px);
+}
+
+/* Input Fields estilo Cortex */
+.cortex-input {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(124, 58, 237, 0.3) !important;
+    color: white !important;
+}
+.cortex-input:focus {
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 15px -3px rgba(139, 92, 246, 0.4) !important;
+    outline: none;
+}
+.cortex-input::placeholder { color: rgba(148, 163, 184, 0.6); }
